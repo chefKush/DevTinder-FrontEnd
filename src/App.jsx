@@ -4,6 +4,7 @@ import Signup from "./components/signup";
 import Login from "./components/login";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
+import Profile from "./components/profile";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
               {/* children */}
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
           </Routes>
         </BrowserRouter>
