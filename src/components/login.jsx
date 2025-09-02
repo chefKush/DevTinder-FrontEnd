@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 const Login = () => {
   const [email, setEmail] = useState("kush@gmail.com");
   const [password, setPassword] = useState("Kush@123");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,8 +25,9 @@ const Login = () => {
       console.log(res.data);
       dispatch(addUser(res.data));
       navigate("/");
-    } catch (error) {
-      console.error("Login failed:", error);
+    } catch (err) {
+      setError(err?.response?.data || "Something went wrong");
+      console.error("Login failed:", err);
     }
   };
   return (
@@ -94,6 +96,7 @@ const Login = () => {
             At least one lowercase letter <br />
             At least one uppercase letter
           </p>
+          <p className="text-red-500">{error}</p>
           <div className="card-actions justify-center">
             <button className="btn btn-primary my-1" onClick={handleLogin}>
               Login
