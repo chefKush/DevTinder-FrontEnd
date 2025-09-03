@@ -83,10 +83,9 @@ const EditProfile = ({ user }) => {
                   value={gender}
                   onChange={(e) => setGender(e.target.value)}
                   className="select"
+                  defaultValue="Select Gender"
                 >
-                  <option value="" disabled>
-                    Select Gender
-                  </option>
+                  <option disabled={true}>Select Gender</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                   <option value="other">Other</option>
