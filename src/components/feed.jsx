@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/config";
 import { useDispatch, useSelector } from "react-redux";
 import { addFeed } from "../utils/feedSlice";
@@ -11,7 +11,7 @@ const Feed = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const feed = useSelector((store) => store.feed);
-  const [error, setError] = React.useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     getFeedData();

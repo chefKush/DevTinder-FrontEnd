@@ -1,26 +1,27 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../utils/config";
-import { addConnection } from "../utils/connectionSlice";
+import { addRequest } from "../utils/requestSlice";
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Error from "./Error";
 
-const Connections = () => {
-  const connections = useSelector((store) => store.connections);
+const Requests = () => {
   const dispatch = useDispatch();
   const [error, setError] = useState(null);
+  const requests = useSelector((store) => store.requests);
 
   useEffect(() => {
-    fetchConnections();
+    fetchRequest();
   }, []);
 
-  const fetchConnections = async () => {
+  const fetchRequest = async () => {
     try {
-      const res = await axios.get(BASE_URL + "/user/connections", {
+      const res = await axios.get(BASE_URL + "/user/requests/received", {
         withCredentials: true,
       });
-      dispatch(addConnection(res.data.data));
+      dispatch(addRequest(res?.data?.data));
     } catch (error) {
+      console.log(error.response);
       setError(error?.response?.data || "Failed to fetch Request data");
     }
   };
@@ -28,25 +29,24 @@ const Connections = () => {
   if (error) {
     return <Error message={error} />;
   }
+  if (!requests) return;
 
-  if (!connections) return;
-
-  if (connections.length === 0) return <h1> No Connections Found</h1>;
+  if (requests.length === 0) return <h1> No Connections Found</h1>;
 
   return (
     <div className="text-center my-10">
       <h1 className="text-bold text-white text-3xl">Connections</h1>
 
-      {connections.map((connection) => {
+      {requests.map((request) => {
         const { firstName, lastName, profilePicture, age, gender, about } =
-          connection;
+          request.fromUserId;
 
         return (
-          <div className=" flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto">
+          <div className=" flex m-4 p-4 rounded-lg bg-base-300 w-2/3 mx-auto">
             <div>
               <img
                 alt="photo"
-                className="w-55 h-15 rounded-full"
+                className="w-35 h-25 rounded-full"
                 src={profilePicture}
               />
             </div>
@@ -57,10 +57,15 @@ const Connections = () => {
               {age && gender && <p>{age + ", " + gender}</p>}
               <p>{about}</p>
             </div>
+            <div>
+              <button className="btn btn-primary my-2">Reject</button>
+              <button className="btn btn-secondary my-2">Accept</button>
+            </div>
           </div>
         );
       })}
     </div>
   );
 };
-export default Connections;
+
+export default Requests;

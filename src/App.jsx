@@ -8,6 +8,7 @@ import Profile from "./components/profile";
 import Feed from "./components/feed";
 import Error from "./components/Error";
 import Connections from "./components/Connections";
+import Requests from "./components/Requests";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
+              <Route path="/requests" element={<Requests />} />
               {/* Error page route for unmatched paths */}
               <Route path="*" element={<Error message="Page not found!" />} />
             </Route>
