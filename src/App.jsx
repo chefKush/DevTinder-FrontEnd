@@ -5,6 +5,8 @@ import Login from "./components/login";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import Profile from "./components/profile";
+import Feed from "./components/feed";
+import Error from "./components/Error";
 
 function App() {
   return (
@@ -14,9 +16,12 @@ function App() {
           <Routes>
             <Route path="/" element={<Body />}>
               {/* children */}
+              <Route path="/" element={<Feed />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
               <Route path="/profile" element={<Profile />} />
+              {/* Error page route for unmatched paths */}
+              <Route path="*" element={<Error message="Page not found!" />} />
             </Route>
           </Routes>
         </BrowserRouter>

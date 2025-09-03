@@ -12,7 +12,7 @@ const NavBar = () => {
 
   const handleLogout = async () => {
     try {
-      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true });
+      await axios.post(BASE_URL + "/logout", {}, { withCredentials: true }); //For a POST request, Axios expects the second argument to be the data sent to the server.so {}
       dispatch(removeUser());
       navigate("/login");
     } catch (error) {
