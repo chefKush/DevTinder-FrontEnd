@@ -26,16 +26,34 @@ const Requests = () => {
     }
   };
 
+  const reviewRequest = async (status, _id) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + "/request/review/" + status + "/" + _id,
+        {},
+        { withCredentials: true }
+      );
+      fetchRequest();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (error) {
     return <Error message={error} />;
   }
   if (!requests) return;
 
-  if (requests.length === 0) return <h1> No Connections Found</h1>;
+  if (requests.length === 0)
+    return (
+      <h1 className="text-white flex justify-center my-10">
+        No Connection Requests Found
+      </h1>
+    );
 
   return (
     <div className="text-center my-10">
-      <h1 className="text-bold text-white text-3xl">Connections</h1>
+      <h1 className="text-bold text-white text-3xl">Connection Requests</h1>
 
       {requests.map((request) => {
         const { firstName, lastName, profilePicture, age, gender, about } =
@@ -58,8 +76,18 @@ const Requests = () => {
               <p>{about}</p>
             </div>
             <div>
-              <button className="btn btn-primary my-2">Reject</button>
-              <button className="btn btn-secondary my-2">Accept</button>
+              <button
+                className="btn btn-primary my-2"
+                onClick={() => reviewRequest("rejected", request._id)}
+              >
+                Reject
+              </button>
+              <button
+                className="btn btn-secondary my-2"
+                onClick={() => reviewRequest("accepted", request._id)}
+              >
+                Accept
+              </button>
             </div>
           </div>
         );
