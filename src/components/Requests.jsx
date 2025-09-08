@@ -64,7 +64,7 @@ const Requests = () => {
             <div>
               <img
                 alt="photo"
-                className="w-35 h-25 rounded-full"
+                className="rounded-full object-cover"
                 src={profilePicture}
               />
             </div>
@@ -77,13 +77,13 @@ const Requests = () => {
             </div>
             <div>
               <button
-                className="btn btn-primary my-2"
+                className="btn btn-primary my-2 mx-2"
                 onClick={() => reviewRequest("rejected", request._id)}
               >
                 Reject
               </button>
               <button
-                className="btn btn-secondary my-2"
+                className="btn btn-secondary my-2 mx-2"
                 onClick={() => reviewRequest("accepted", request._id)}
               >
                 Accept

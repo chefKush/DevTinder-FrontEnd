@@ -33,6 +33,15 @@ const Feed = () => {
     return <Error message={error} />;
   }
 
+  if (!feed) return null;
+
+  if (feed.length <= 0)
+    return (
+      <div className="flex justify-center my-10">
+        No more users in your area. Please try again later.
+      </div>
+    );
+
   return (
     feed && (
       <div className="flex justify-center my-10">
