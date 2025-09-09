@@ -47,7 +47,7 @@ const Connections = () => {
             <div>
               <img
                 alt="photo"
-                className="rounded-full object-cover"
+                className="w-60 rounded-full object-cover"
                 src={profilePicture}
               />
             </div>
