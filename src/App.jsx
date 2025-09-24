@@ -9,6 +9,7 @@ import Feed from "./components/feed";
 import Error from "./components/Error";
 import Connections from "./components/Connections";
 import Requests from "./components/Requests";
+import Chat from "./components/chat";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/requests" element={<Requests />} />
+              <Route path="/chat/:targetUserId" element={<Chat />} />
               {/* Error page route for unmatched paths */}
               <Route path="*" element={<Error message="Page not found!" />} />
             </Route>
