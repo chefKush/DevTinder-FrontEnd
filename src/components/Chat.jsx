@@ -11,6 +11,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [targetUser, setTargetUser] = useState(null);
+  const userId = user?._id;
 
   useEffect(() => {
     findUserById();
@@ -23,10 +24,32 @@ const Chat = () => {
     });
     setTargetUser(res.data.data);
   };
-  console.log(targetUser);
   const { firstName, lastName, profilePicture } = targetUser || {};
 
-  const userId = user?._id;
+  const fetchChatHistory = async () => {
+    try {
+      const chat = await axios.get(BASE_URL + `/chat/${targetUserId}`, {
+        withCredentials: true,
+      });
+      console.log(chat.data.messages);
+
+      const chatMessages = chat?.data?.messages.map((msg) => {
+        return {
+          senderId: msg.sender._id,
+          text: msg.content,
+          profilePicture: msg.sender.profilePicture,
+          id: msg._id,
+        };
+      });
+      setMessages(chatMessages || []);
+    } catch (error) {
+      console.error("Error fetching chat history:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchChatHistory();
+  }, [targetUserId]);
 
   useEffect(() => {
     if (!userId) {
@@ -40,18 +63,20 @@ const Chat = () => {
       targetUserId,
     });
 
-    socket.on("receiveMessage", ({ firstName, userId, text }) => {
-      const isCurrentUser = userId === user?._id;
-      setMessages((messages) => [
-        ...messages,
-        {
-          id: Date.now(),
-          sender: isCurrentUser ? "user" : "other",
-          text,
-          firstName,
-        },
-      ]);
-    });
+    socket.on(
+      "receiveMessage",
+      ({ userId: senderId, text, profilePicture }) => {
+        setMessages((messages) => [
+          ...messages,
+          {
+            id: Date.now(),
+            senderId,
+            text,
+            profilePicture,
+          },
+        ]);
+      }
+    );
 
     return () => {
       socket.disconnect();
@@ -90,7 +115,7 @@ const Chat = () => {
           <div
             key={msg.id}
             className={`chat ${
-              msg.sender === "user" ? "chat-end" : "chat-start"
+              msg.senderId === userId ? "chat-end" : "chat-start"
             }`}
           >
             {/* Avatar */}
@@ -98,7 +123,9 @@ const Chat = () => {
               <div className="w-8 h-8 rounded-full">
                 <img
                   src={
-                    msg.sender === "user" ? user.profilePicture : profilePicture
+                    msg.senderId === userId
+                      ? user.profilePicture
+                      : profilePicture
                   }
                   alt="avatar"
                 />
@@ -108,7 +135,7 @@ const Chat = () => {
             {/* Bubble */}
             <div
               className={`chat-bubble whitespace-pre-line ${
-                msg.sender === "user"
+                msg.senderId === userId
                   ? "bg-primary text-primary-content"
                   : "bg-neutral text-neutral-content"
               }`}
