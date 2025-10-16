@@ -1,1 +1,2 @@
-export const BASE_URL = "http://localhost:7777";
+export const BASE_URL = "https://devtinder-backend-fyd6.onrender.com"
+// "http://localhost:7777";
