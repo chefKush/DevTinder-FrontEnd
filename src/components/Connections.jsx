@@ -36,8 +36,8 @@ const Connections = () => {
     return <h1 className="flex justify-center my-10"> No Connections Found</h1>;
 
   return (
-    <div className="text-center my-10">
-      <h1 className="text-bold text-white text-3xl">Connections</h1>
+    <div className="text-center my-10 px-4 md:px-8 lg:px-16">
+      <h1 className="font-bold text-white text-3xl mb-6">Connections</h1>
 
       {connections.map((connection) => {
         const { _id, firstName, lastName, profilePicture, age, gender, about } =
@@ -46,25 +46,33 @@ const Connections = () => {
         return (
           <div
             key={_id}
-            className=" flex m-4 p-4 rounded-lg bg-base-300 w-1/2 mx-auto"
+            className="flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6 m-4 p-4 rounded-lg bg-base-300 sm:w-4/5 lg:w-3/5 mx-auto shadow-md"
           >
-            <div>
+            <div className="flex-shrink-0">
               <img
                 alt="photo"
-                className="w-60 rounded-full object-cover"
+                className="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover"
                 src={profilePicture}
               />
             </div>
-            <div className="text-left mx-4 ">
-              <h2 className="font-bold text-xl">
+
+            <div className="text-left flex-1">
+              <h2 className="font-bold text-xl sm:text-2xl">
                 {firstName + " " + lastName}
               </h2>
-              {age && gender && <p>{age + ", " + gender}</p>}
-              <p>{about}</p>
+              {age && gender && (
+                <p className="text-sm sm:text-base mt-1">
+                  {age + ", " + gender}
+                </p>
+              )}
+              <p className="mt-2 text-sm sm:text-base">{about}</p>
             </div>
-            <Link to={`/chat/${_id}`}>
-              <button className="btn btn-info">Chat</button>
-            </Link>
+
+            <div className="mt-3 sm:mt-0 sm:ml-4">
+              <Link to={`/chat/${_id}`}>
+                <button className="btn btn-info w-full sm:w-auto">Chat</button>
+              </Link>
+            </div>
           </div>
         );
       })}

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BASE_URL } from "../utils/config";
 import { clearFeed } from "../utils/feedSlice";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, showActions = true }) => {
   const dispatch = useDispatch();
   const { _id, firstName, lastName, age, about, gender, profilePicture } = user;
 
@@ -31,20 +31,22 @@ const UserCard = ({ user }) => {
         {/* <p>{age}</p>
         <p>{gender}</p> */}
         <p>{about}</p>
-        <div className="card-actions justify-center my-4">
-          <button
-            className="btn btn-primary"
-            onClick={() => handleRequest("ignored", _id)}
-          >
-            Ignore
-          </button>
-          <button
-            className="btn btn-secondary"
-            onClick={() => handleRequest("interested", _id)}
-          >
-            Interested
-          </button>
-        </div>
+        {showActions && (
+          <div className="card-actions justify-center my-4">
+            <button
+              className="btn btn-primary"
+              onClick={() => handleRequest("ignored", _id)}
+            >
+              Ignore
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => handleRequest("interested", _id)}
+            >
+              Interested
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

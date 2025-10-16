@@ -45,18 +45,20 @@ const EditProfile = ({ user }) => {
 
   return (
     <>
-      <div className="flex justify-center my-10">
-        <div className="flex justify-center mx-10">
-          <div className="card bg-base-300 w-96 shadow-sm">
+      <div className="flex flex-wrap justify-center items-start gap-6 my-10 px-4">
+        {/* Form Card */}
+        <div className="w-full md:w-[380px]">
+          <div className="card bg-base-300 w-full shadow-sm">
             <div className="card-body">
-              <h2 className="card-title">Edit Profile</h2>
+              <h2 className="card-title text-lg lg:text-xl">Edit Profile</h2>
+              {/* Fields */}
               <fieldset className="fieldset">
                 <label className="fieldset-legend">First Name</label>
                 <input
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   type="text"
-                  className="input"
+                  className="input w-full"
                 />
               </fieldset>
               <fieldset className="fieldset">
@@ -65,7 +67,7 @@ const EditProfile = ({ user }) => {
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   type="text"
-                  className="input"
+                  className="input w-full"
                 />
               </fieldset>
               <fieldset className="fieldset">
@@ -74,7 +76,7 @@ const EditProfile = ({ user }) => {
                   value={age}
                   onChange={(e) => setAge(e.target.value)}
                   type="text"
-                  className="input"
+                  className="input w-full"
                 />
               </fieldset>
               <fieldset className="fieldset">
@@ -82,8 +84,7 @@ const EditProfile = ({ user }) => {
                 <select
                   value={gender}
                   onChange={(e) => setGender(e.target.value)}
-                  className="select"
-                  defaultValue="Select Gender"
+                  className="select w-full"
                 >
                   <option disabled={true}>Select Gender</option>
                   <option value="male">Male</option>
@@ -96,7 +97,7 @@ const EditProfile = ({ user }) => {
                 <textarea
                   value={about}
                   onChange={(e) => setAbout(e.target.value)}
-                  className="input"
+                  className="input w-full"
                 />
               </fieldset>
               <fieldset className="fieldset">
@@ -105,22 +106,34 @@ const EditProfile = ({ user }) => {
                   value={profilePicture}
                   onChange={(e) => setProfilePicture(e.target.value)}
                   type="text"
-                  className="input"
+                  className="input w-full"
                 />
               </fieldset>
+
               <p className="text-red-500">{error}</p>
+
               <div className="card-actions justify-center">
-                <button className="btn btn-primary my-1" onClick={handleSubmit}>
+                <button
+                  className="btn btn-primary my-1 w-full lg:w-auto"
+                  onClick={handleSubmit}
+                >
                   Update Profile
                 </button>
               </div>
             </div>
           </div>
         </div>
-        <UserCard
-          user={{ firstName, lastName, age, gender, about, profilePicture }}
-        />
+
+        {/* User Card */}
+        <div className="w-full md:w-[380px]">
+          <UserCard
+            user={{ firstName, lastName, age, gender, about, profilePicture }}
+            showActions={false}
+          />
+        </div>
       </div>
+
+      {/* Toast */}
       {showToast && (
         <div className="toast toast-top toast-center">
           <div className="alert alert-success">

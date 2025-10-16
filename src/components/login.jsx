@@ -57,80 +57,93 @@ const Login = () => {
   }, [user, navigate]);
 
   return (
-    <div className="flex justify-center my-10">
-      <div className="card bg-base-300 w-96 shadow-xl">
-        <div className="card-body">
-          <h2 className="card-title justify-center">
-            {isLoginForm ? "Login" : "Sign Up"}
-          </h2>
-          <div>
+    <div className="flex justify-center items-center min-h-screen bg-gray-900 px-4">
+      <div className="relative w-full max-w-md">
+        {/* Optional floating accent circles */}
+        <div className="absolute -top-16 -left-16 w-40 h-40 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full opacity-30 blur-3xl"></div>
+        <div className="absolute -bottom-16 -right-16 w-40 h-40 bg-gradient-to-tr from-pink-500 to-orange-400 rounded-full opacity-30 blur-3xl"></div>
+
+        <div className="card bg-gray-800 shadow-2xl rounded-3xl overflow-hidden border border-gray-700">
+          <div className="card-body p-8">
+            <h2 className="card-title justify-center text-3xl font-extrabold text-white mb-6 drop-shadow-lg">
+              {isLoginForm ? "Login" : "Sign Up"}
+            </h2>
+
             {!isLoginForm && (
-              <>
-                <label className="form-control w-full max-w-xs my-2">
-                  <div className="label">
-                    <span className="label-text">First Name</span>
-                  </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <label className="form-control w-full">
+                  <span className="label-text text-gray-200 font-semibold">
+                    First Name
+                  </span>
                   <input
                     type="text"
                     value={firstName}
-                    className="input input-bordered w-full max-w-xs"
+                    className="input input-bordered w-full focus:border-indigo-500 focus:ring focus:ring-indigo-300 bg-gray-700 text-white placeholder-gray-400 transition"
+                    placeholder="Enter first name"
                     onChange={(e) => setFirstName(e.target.value)}
                   />
                 </label>
-                <label className="form-control w-full max-w-xs my-2">
-                  <div className="label">
-                    <span className="label-text">Last Name</span>
-                  </div>
+                <label className="form-control w-full">
+                  <span className="label-text text-gray-200 font-semibold">
+                    Last Name
+                  </span>
                   <input
                     type="text"
                     value={lastName}
-                    className="input input-bordered w-full max-w-xs"
+                    className="input input-bordered w-full focus:border-indigo-500 focus:ring focus:ring-indigo-300 bg-gray-700 text-white placeholder-gray-400 transition"
+                    placeholder="Enter last name"
                     onChange={(e) => setLastName(e.target.value)}
                   />
                 </label>
-              </>
-            )}
-            <label className="form-control w-full max-w-xs my-2">
-              <div className="label">
-                <span className="label-text">Email ID:</span>
               </div>
+            )}
+
+            <label className="form-control w-full mt-4">
+              <span className="label-text text-gray-200 font-semibold">
+                Email ID
+              </span>
               <input
                 type="text"
                 value={email}
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full focus:border-indigo-500 focus:ring focus:ring-indigo-300 bg-gray-700 text-white placeholder-gray-400 transition"
+                placeholder="Enter email"
                 onChange={(e) => setEmail(e.target.value)}
               />
             </label>
-            <label className="form-control w-full max-w-xs my-2">
-              <div className="label">
-                <span className="label-text">Password</span>
-              </div>
+
+            <label className="form-control w-full mt-4">
+              <span className="label-text text-gray-200 font-semibold">
+                Password
+              </span>
               <input
                 type="password"
                 value={password}
-                className="input input-bordered w-full max-w-xs"
+                className="input input-bordered w-full focus:border-indigo-500 focus:ring focus:ring-indigo-300 bg-gray-700 text-white placeholder-gray-400 transition"
+                placeholder="Enter password"
                 onChange={(e) => setPassword(e.target.value)}
               />
             </label>
-          </div>
-          <p className="text-red-500">{error}</p>
-          <div className="card-actions justify-center m-2">
-            <button
-              className="btn btn-primary"
-              onClick={isLoginForm ? handleLogin : handleSignUp}
-            >
-              {isLoginForm ? "Login" : "Sign Up"}
-            </button>
-          </div>
 
-          <p
-            className="m-auto cursor-pointer py-2"
-            onClick={() => setIsLoginForm((value) => !value)}
-          >
-            {isLoginForm
-              ? "New User? Signup Here"
-              : "Existing User? Login Here"}
-          </p>
+            {error && <p className="text-red-500 mt-2 text-sm">{error}</p>}
+
+            <div className="card-actions justify-center mt-6">
+              <button
+                className="btn btn-gradient w-full sm:w-auto px-8 py-2 text-lg font-semibold bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:scale-105 transition-transform"
+                onClick={isLoginForm ? handleLogin : handleSignUp}
+              >
+                {isLoginForm ? "Login" : "Sign Up"}
+              </button>
+            </div>
+
+            <p
+              className="text-center mt-4 cursor-pointer text-indigo-400 hover:text-indigo-500 underline transition"
+              onClick={() => setIsLoginForm((value) => !value)}
+            >
+              {isLoginForm
+                ? "New User? Sign Up Here"
+                : "Existing User? Login Here"}
+            </p>
+          </div>
         </div>
       </div>
     </div>
