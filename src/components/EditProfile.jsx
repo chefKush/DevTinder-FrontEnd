@@ -135,9 +135,9 @@ const EditProfile = ({ user }) => {
 
       {/* Toast */}
       {showToast && (
-        <div className="toast toast-top toast-center">
-          <div className="alert alert-success">
-            <span>Profile saved successfully.</span>
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[9999]">
+          <div className="bg-green-500 text-white px-2 py-2 rounded-xl shadow-lg text-sm sm:text-base flex items-center gap-1 animate-fade-in">
+            <span>Profile updated successfully</span>
           </div>
         </div>
       )}
